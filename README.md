@@ -1,20 +1,40 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# E-Learning AI App
 
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/d0b4fd07-17df-4c5b-8c1b-b0accd9ae017
+This repository contains a React + Vite application with an Express backend. It is ready to deploy to any standard Node hosting platform such as Render.
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. Create a `.env` file in the project root and add your Gemini API key:
+   ```
+   GEMINI_API_KEY=your_api_key_here
+   ```
+3. Run the app in development mode:
    `npm run dev`
+
+## Build for Production
+
+1. Build the frontend and backend:
+   `npm run build`
+2. Start the production server:
+   `npm start`
+
+## Render Deployment
+
+For Render, use these commands:
+
+- Build Command: `npm run build`
+- Start Command: `npm start`
+
+Render will provide the `PORT` environment variable automatically, and the app is configured to use it.
+
+### Environment Variables
+
+- `GEMINI_API_KEY`: Your Google Gemini API key
+
+Create a `.env` file at the project root for local development. The `.gitignore` is already configured to ignore `.env` files, but includes `.env.example` for reference.
+
+If you deploy to Render, set this variable in the service dashboard instead of using `.env`.

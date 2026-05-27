@@ -3,13 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import dotenv from "dotenv";
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 
+dotenv.config();
+
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 // 解析 JSON 封包，並放寬長度限制以防範長篇逐字稿
 app.use(express.json({ limit: "15mb" }));
@@ -20,15 +23,10 @@ function getGeminiClient(): GoogleGenAI {
   if (!aiClient) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      console.warn("警告：未檢測到 GEMINI_API_KEY 環境變數。後端 API 回應可能會失敗。請至 AI Studio 秘密管理面板配置金鑰。");
+      console.warn("警告：未檢測到 GEMINI_API_KEY 環境變數。後端 API 回應可能會失敗。請在 Render 或本地環境中配置該金鑰。");
     }
     aiClient = new GoogleGenAI({
       apiKey: apiKey || "",
-      httpOptions: {
-        headers: {
-          'User-Agent': 'aistudio-build',
-        }
-      }
     });
   }
   return aiClient;
